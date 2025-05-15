@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Split Scroll Layout</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {height: 100%;overflow: hidden; font-family: 'Helvetica Neue', sans-serif; background: #fff; color: #000; }
+    .container {display: flex; height: 1000px;}
+    .left { width: 35%;height: 1000px;overflow-y: scroll;padding: 60px 40px;border-right: 1px solid #ccc; background: #fff;}
+    .right {width: 65%; height: 1000px; overflow-y: scroll; padding: 60px 60px; background: #fafafa;}
+    .intro { font-size: 18pt; line-height: 1.6; margin-bottom: 300px; }
+    .menu { font-size: 14pt; color: #999;}
+    .menu li {list-style: none; margin: 12px 0; cursor: pointer;}
+    .menu li.active {color: #000;font-weight: bold;}
+    .content {font-size: 14pt;line-height: 1.8;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <div class="intro">
+        우리는 사라진 것을 위해 이야기를 남깁니다.
+        기후변화는 느리게, 그러나 확실하게 많은 것을 빼앗아갔습니다.
+        기억되지 않는 멸종은 두 번 죽는 것입니다.
+        그래서 우리는 오늘, 그들을 위한 장례를 준비했습니다.
+      </div>
+      <ul class="menu" id="menu">
+        <li class="active" data-id="intro">Intro</li>
+        <li data-id="seasons">1. Disappearing Seasons</li>
+        <li data-id="whitenomore">2. White No More</li>
+        <li data-id="coral">3. Dead Coral Diaries</li>
+        <li data-id="muted">4. Muted Sounds</li>
+        <li data-id="extinct">5. Extinct and Unnoticed</li>
+        <li data-id="forecasts">6. Final Forecasts</li>
+      </ul>
+    </div>
+
+    <div class="right">
+      <div class="content">
+        <p><strong></strong></p>
+      </div>
+    </div>
+  </div>
+  <script>
+    const menuItems = document.querySelectorAll('#menu li');
+    const contentArea = document.querySelector('.right .content');
+
+    const contents = {
+      seasons: `<h2>Disappearing Seasons</h2>
+        <p><em>“언제부터였을까. 봄은 너무 짧고, 여름은 갑자기 시작되었다.”</em></p>
+        <p>더 이상 사계절은 네 개가 아니다.<br>
+        봄은 눈 깜짝할 새 지나가고, 가을은 한 번쯤 스웨터를 꺼내기 무섭게 사라진다.<br>
+        이제 계절은 두 개로 느껴진다. 덥거나, 춥거나.</p>
+        <p>2020년 이후, 한국을 포함한 중위도 국가들에서는 봄과 가을의 평균 길이가 20~30% 가까이 줄어들었다.<br>
+        특히 2023년 서울의 봄은 '27일밖에 되지 않았다'는 기사 제목이 회자되기도 했다.</p>
+        <p>이는 단순한 감상이 아니라 기후 시스템의 구조적 붕괴를 의미한다.<br>
+        나무는 꽃을 피우지 못하고, 곤충은 시기를 놓쳐 죽는다. 계절의 순환이 깨어지면, 생태계도 함께 흔들린다.</p>
+        <blockquote>“사계절을 느껴본 마지막 세대는 우리일지도 모른다.” – 한 기후학자의 말</blockquote>
+        <p>사계절은 기억의 프레임이다.<br>
+        따뜻했던 봄날의 첫 산책, 선선한 바람이 불던 오후의 그 기분, 그런 순간들이 더 이상 ‘정해진 때’에 찾아오지 않는다.<br>
+        계절의 붕괴는, 우리의 정서적 연대감을 함께 빼앗아간다.</p>
+      `,
+	  muted : 
+	  	`<h2>Muted sounds</h2>
+		`
+    };
+
+    menuItems.forEach(item => {
+      item.addEventListener('click', () => {
+        menuItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+
+        const id = item.dataset.id;
+        if (id && contents[id]) {
+          contentArea.innerHTML = contents[id];
+        }
+      });
+    });
+  </script>
+</body>
+</html>
